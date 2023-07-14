@@ -67,7 +67,7 @@ class AddressServices {
             showSnackBar(context, "Your order has been placed");
             User user = userProvider.user.copyWith(cart: []);
             userProvider.setUserFromModel(user);
-            Navigator.pushNamed(context, AccountScreen.routeName);
+            Navigator.pushReplacementNamed(context, AccountScreen.routeName);
           },
         );
       }

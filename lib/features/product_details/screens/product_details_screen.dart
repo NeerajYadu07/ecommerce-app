@@ -448,7 +448,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         margin: const EdgeInsets.only(left: 16, top: 20, right: 16),
         child: Column(
           children: [
-            Container(
+            avgRating !=0?Container(
               margin: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -515,7 +515,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   )
                 ],
               ),
-            ),
+            ):const Text('No Reviews for this product yet'),
             const SizedBox(
               height: 10,
             ),

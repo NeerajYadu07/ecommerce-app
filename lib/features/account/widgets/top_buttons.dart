@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/account/screens/orders_screen.dart';
 import 'package:amazon_clone/features/account/screens/wishlist_screen.dart';
 import 'package:amazon_clone/features/account/services/account_services.dart';
 import 'package:amazon_clone/features/account/widgets/account_button.dart';
@@ -12,7 +13,7 @@ class TopButtons extends StatelessWidget {
       children: [
         Row(
           children: [
-            AccountButton(text: 'Your Orders', onPressed: () {}),
+            AccountButton(text: 'Your Orders', onPressed: ()=>Navigator.pushNamed(context, OrdersScreen.routeName)),
             AccountButton(text: 'Turn Seller', onPressed: () {}),
           ],
         ),
