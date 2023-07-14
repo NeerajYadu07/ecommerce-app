@@ -55,7 +55,7 @@ class AdminServices {
               context: context,
               onSuccess: () {
                 showSnackBar(context, 'Product added successfully!');
-                Navigator.pop(context);
+                Navigator.pop(context,true);
               });
         }
       }

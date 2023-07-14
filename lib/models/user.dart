@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
+import 'package:amazon_clone/models/product.dart';
 
 class User {
   final String id;
@@ -9,6 +12,7 @@ class User {
   final String type;
   final String token;
   final List<dynamic> cart;
+  final List<Product> wishList;
 
   User({
     required this.id,
@@ -19,6 +23,7 @@ class User {
     required this.type,
     required this.token,
     required this.cart,
+    required this.wishList,
   });
 
   Map<String, dynamic> toMap() {
@@ -31,6 +36,7 @@ class User {
       'type': type,
       'token': token,
       'cart': cart,
+      'wishList': wishList.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -48,6 +54,9 @@ class User {
           (x) => Map<String, dynamic>.from(x),
         ),
       ),
+      wishList:
+          List<Product>.from(map['wishList']?.map((x) => Product.fromMap(x)))
+              .toList(),
     );
   }
 
@@ -64,6 +73,7 @@ class User {
     String? type,
     String? token,
     List<dynamic>? cart,
+    List<Product>? wishList,
   }) {
     return User(
       id: id ?? this.id,
@@ -74,8 +84,7 @@ class User {
       type: type ?? this.type,
       token: token ?? this.token,
       cart: cart ?? this.cart,
+      wishList: wishList ?? this.wishList,
     );
   }
-
-  
 }

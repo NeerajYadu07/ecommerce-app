@@ -28,7 +28,7 @@ class AuthService {
           address: "",
           type: "",
           token: "",
-          cart: []);
+          cart: [], wishList: []);
       http.Response res = await http.post(Uri.parse('$uri/api/signup'),
           body: user.toJson(),
           headers: <String, String>{

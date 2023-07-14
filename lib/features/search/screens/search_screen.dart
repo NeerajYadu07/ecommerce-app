@@ -10,7 +10,7 @@ import '../../../models/product.dart';
 
 class SearchScreen extends StatefulWidget {
   static const String routeName = '/search-screen';
-  final String searchQuery;
+  final String? searchQuery;
   const SearchScreen({super.key, required this.searchQuery});
 
   @override
@@ -24,16 +24,17 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    fetchSearchedProduct();
+    (widget.searchQuery != null) ? fetchSearchedProduct() : products = [];
   }
 
   void navigateToSearchScreen(String query) {
-    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+    Navigator.pushReplacementNamed(context, SearchScreen.routeName,
+        arguments: query);
   }
 
   fetchSearchedProduct() async {
     products = await searchServices.fetchSearchedProducts(
-        context: context, searchQuery: widget.searchQuery);
+        context: context, searchQuery: widget.searchQuery!);
     setState(() {});
   }
 
@@ -112,27 +113,30 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: products == null
           ? const Loader()
-          : Column(
-              children: [
-                const AddressBox(),
-                const SizedBox(
-                  height: 10,
+          : products!.isEmpty
+              ? const Center(child: Text("Search a product"))
+              : Column(
+                  children: [
+                    const AddressBox(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: products!.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, ProductDetailsScreen.routeName,
+                                      arguments: products![index]);
+                                },
+                                child:
+                                    SearchedProduct(product: products![index]));
+                          }),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: products!.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, ProductDetailsScreen.routeName,
-                                  arguments: products![index]);
-                            },
-                            child: SearchedProduct(product: products![index]));
-                      }),
-                ),
-              ],
-            ),
     );
   }
 }

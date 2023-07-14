@@ -41,7 +41,12 @@ const userSchema=mongoose.Schema({
                 required:true,
             }
         }
-    ]
+    ],
+    wishList:[
+        productSchema,
+
+    ],
+
 
 })
 

@@ -1,9 +1,11 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/loader.dart';
+import 'package:amazon_clone/features/account/screens/orders_screen.dart';
 import 'package:amazon_clone/features/account/services/account_services.dart';
 import 'package:amazon_clone/features/account/widgets/single_product.dart';
 import 'package:amazon_clone/models/order.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../order_details/screens/order_details_screen.dart';
 
@@ -50,17 +52,23 @@ class _OrdersState extends State<Orders> {
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      right: 15,
-                    ),
-                    child: Text(
-                      'See All',
-                      style: TextStyle(
-                        color: GlobalVariables.selectedNavBarColor,
-                      ),
-                    ),
-                  ),
+                  orders!.isEmpty
+                      ? Container()
+                      : Container(
+                          padding: const EdgeInsets.only(
+                            right: 15,
+                          ),
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, OrdersScreen.routeName),
+                            child: Text(
+                              'See All',
+                              style: TextStyle(
+                                color: GlobalVariables.selectedNavBarColor,
+                              ),
+                            ),
+                          ),
+                        ),
                 ],
               ),
               Container(
@@ -71,11 +79,33 @@ class _OrdersState extends State<Orders> {
                   itemBuilder: (context, index) {
                     debugPrint(orders![index].products[0].images[0]);
                     return GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                            context, OrderDetailsScreen.routeName,
-                            arguments: orders![index]),
-                        child: SingleProduct(
-                            image: orders![index].products[0].images[0]));
+                      onTap: () => Navigator.pushNamed(
+                          context, OrderDetailsScreen.routeName,
+                          arguments: orders![index]),
+                      child: Stack(
+                        children: [
+                          SingleProduct(
+                              image: orders![index].products[0].images[0]),
+                          Positioned(
+                            bottom: 10,
+                            right: 10,
+                            child: badges.Badge(
+                              badgeContent: Text(
+                                '+${orders![index].products.length - 1}',
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              ),
+                              badgeStyle: const badges.BadgeStyle(
+                                  badgeColor: Colors.transparent),
+                              showBadge:
+                                  (orders![index].products.length - 1) == 0
+                                      ? false
+                                      : true,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
                   },
                   scrollDirection: Axis.horizontal,
                 ),

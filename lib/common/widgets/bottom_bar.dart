@@ -87,8 +87,7 @@ class _BottomBarState extends State<BottomBar> {
                 ))),
                 child: badges.Badge(
                     badgeContent: Text(userCartLength.toString()),
-                    badgeStyle:
-                        const badges.BadgeStyle(badgeColor: Colors.white),
+                    badgeStyle: const badges.BadgeStyle(badgeColor: Colors.red),
                     child: const Icon(Icons.shopping_cart_outlined)),
               ),
               label: ''),

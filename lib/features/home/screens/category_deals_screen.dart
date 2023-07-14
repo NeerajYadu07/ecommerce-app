@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/global_variables.dart';
 import '../../../constants/loader.dart';
 import '../../product_details/screens/product_details_screen.dart';
+import '../../search/widget/searched_product.dart';
 
 class CategoryDealsScreen extends StatefulWidget {
   final String category;
@@ -60,50 +61,20 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
-              SizedBox(
-                height: 170,
-                child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 15),
-                    itemCount: productsList!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            childAspectRatio: 1.4,
-                            mainAxisSpacing: 10),
-                    itemBuilder: (context, index) {
-                      final product = productsList![index];
-                      return GestureDetector(
-                        onTap:(){
-                          Navigator.pushNamed(context, ProductDetailsScreen.routeName,arguments: product);
-                        },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 130,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                  color: Colors.black12,
-                                  width: 0.5,
-                                )),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Image.network(product.images[0]),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              padding: const EdgeInsets.only(
-                                  left: 0, top: 5, right: 15),
-                              child: Text(product.name,maxLines: 1,overflow: TextOverflow.ellipsis,),
-                            )
-                          ],
-                        ),
-                      );
-                    }),
-              ),
+              Expanded(
+                      child: ListView.builder(
+                          itemCount: productsList!.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, ProductDetailsScreen.routeName,
+                                      arguments: productsList![index]);
+                                },
+                                child:
+                                    SearchedProduct(product: productsList![index]));
+                          }),
+                    ),
             ]),
     );
   }

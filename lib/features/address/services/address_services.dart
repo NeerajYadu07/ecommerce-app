@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/account/screens/account_screen.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -66,6 +67,7 @@ class AddressServices {
             showSnackBar(context, "Your order has been placed");
             User user = userProvider.user.copyWith(cart: []);
             userProvider.setUserFromModel(user);
+            Navigator.pushNamed(context, AccountScreen.routeName);
           },
         );
       }

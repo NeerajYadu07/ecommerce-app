@@ -2,9 +2,11 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/account/widgets/below_app_bar.dart';
 import 'package:amazon_clone/features/account/widgets/orders.dart';
 import 'package:amazon_clone/features/account/widgets/top_buttons.dart';
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
+  static const String routeName = 'account-screen';
   const AccountScreen({super.key});
 
   @override
@@ -33,12 +35,15 @@ class AccountScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Row(
-                  children: const [
-                    Padding(
+                  children: [
+                    const Padding(
                       padding: EdgeInsets.only(right: 15),
                       child: Icon(Icons.notifications_outlined),
                     ),
-                    Icon(Icons.search),
+                    GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                            context, SearchScreen.routeName),
+                        child: const Icon(Icons.search)),
                   ],
                 ),
               )
@@ -46,11 +51,15 @@ class AccountScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(children: const [
+      body: const Column(children: [
         BelowAppBar(),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         TopButtons(),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         Orders(),
       ]),
     );

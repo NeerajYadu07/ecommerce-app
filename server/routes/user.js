@@ -111,7 +111,49 @@ userRouter.get('/api/orders/me',auth,async (req,res)=>{
     catch(e){
         res.status(500).json({error:e.message});
     }
-})
+});
+
+userRouter.get('/api/get-wishlist',auth,async(req,res)=>{
+  try{
+      const user = await User.findById(req.user);
+      const wishList = user.wishList;
+      res.json(wishList);
+  }
+  catch(e){
+      res.status(500).json({error:e.message});
+  }
+});
+
+userRouter.post('/api/add-to-wishlist',auth,async (req,res)=>{
+  try{
+      const {id}=req.body;
+      const product=await Product.findById(id);
+      let user = await User.findById(req.user);
+      user.wishList.push(product);
+      user=await user.save();
+      res.json(user);
+  }
+  catch(e){
+      res.status(500).json({error:e.message});
+  }
+});
+userRouter.delete("/api/remove-from-wishlist/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    let user = await User.findById(req.user);
+
+    for (let i = 0; i < user.wishList.length; i++) {
+      if (user.wishList[i]._id.equals(product._id)){
+        user.wishList.splice(i, 1);
+      }
+    }
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 
 module.exports=userRouter;

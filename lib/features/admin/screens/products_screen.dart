@@ -37,8 +37,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
         });
   }
 
-  void navigateToAddProduct() {
-    Navigator.pushNamed(context, AddProductScreen.routeName);
+  void navigateToAddProduct() async{
+    bool value = await Navigator.pushNamed(context, AddProductScreen.routeName) as bool;
+    if(value){
+      fetchAllProducts();
+    }
   }
 
   @override

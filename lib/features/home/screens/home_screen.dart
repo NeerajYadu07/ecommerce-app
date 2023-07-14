@@ -16,14 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  void navigateToSearchScreen(String query){
-    Navigator.pushNamed(context, SearchScreen.routeName,arguments: query);
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      appBar:PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
           flexibleSpace: Container(
@@ -93,18 +93,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
-          children: const [
+          children: [
             AddressBox(),
+            CarouselImages(),
             SizedBox(
               height: 10,
             ),
             TopCatergories(),
-            SizedBox(
-              height: 10,
-            ),
-            CarouselImages(),
             DealOfDay(),
           ],
         ),

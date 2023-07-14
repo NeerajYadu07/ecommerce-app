@@ -1,3 +1,7 @@
+import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/account/screens/account_screen.dart';
+import 'package:amazon_clone/features/account/screens/orders_screen.dart';
+import 'package:amazon_clone/features/account/screens/wishlist_screen.dart';
 import 'package:amazon_clone/features/admin/screens/add_products_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/home/screens/category_deals_screen.dart';
@@ -16,9 +20,13 @@ import 'models/order.dart';
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
     case AuthScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const AuthScreen(),
+      // return MaterialPageRoute(
+      //   settings: routeSettings,
+      //   builder: (_) => const AuthScreen(),
+      // );
+      return Transitions(
+        transitionType: TransitionType.slideUp,
+        widget: const AuthScreen(),
       );
     case HomeScreen.routeName:
       return MaterialPageRoute(
@@ -40,32 +48,54 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const CartScreen(),
       );
-    case AddressScreen.routeName:
-    var totalAmount = routeSettings.arguments as String;
+    case WishlistedProductScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => AddressScreen(totalAmount: totalAmount,),
+        builder: (_) => const WishlistedProductScreen(),
+      );
+    case AccountScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AccountScreen(),
+      );
+    case OrdersScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const OrdersScreen(),
+      );
+    case AddressScreen.routeName:
+      var totalAmount = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => AddressScreen(
+          totalAmount: totalAmount,
+        ),
       );
     case SearchScreen.routeName:
-    var searchQuery = routeSettings.arguments as String;
+      var searchQuery = routeSettings.arguments!=null? routeSettings.arguments as String:null;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => SearchScreen(searchQuery: searchQuery),
       );
     case ProductDetailsScreen.routeName:
-    var product = routeSettings.arguments as Product;
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => ProductDetailsScreen(product: product),
-      );
+      var product = routeSettings.arguments as Product;
+      // return MaterialPageRoute(
+      //   settings: routeSettings,
+      //   builder: (_) => ProductDetailsScreen(product: product),
+      // );
+      return Transitions(
+          transitionType: TransitionType.slideUp,
+          widget: ProductDetailsScreen(
+            product: product,
+          ));
     case OrderDetailsScreen.routeName:
-    var order = routeSettings.arguments as Order;
+      var order = routeSettings.arguments as Order;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => OrderDetailsScreen(order: order),
       );
     case CategoryDealsScreen.routeName:
-    var category = routeSettings.arguments as String;
+      var category = routeSettings.arguments as String;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => CategoryDealsScreen(
