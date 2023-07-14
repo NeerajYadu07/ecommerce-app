@@ -435,7 +435,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Stack(
                 alignment: Alignment.bottomRight,
                 children: <Widget>[
-                  Text(widget.product.description, maxLines: 3),
+                  Text(widget.product.description),
                 ],
               ),
             ]),
