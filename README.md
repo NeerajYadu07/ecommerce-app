@@ -5,8 +5,8 @@ A full-stack e-commerce application replicating the     functionality of Amazon.
 
 ## Tech Stack Used
     1. Flutter,: For Client side UI
-    3. Provider: For State Management
-    2. Node.js, Express, Mongoose: For server side
+    2. Provider: For State Management
+    3. Node.js, Express, Mongoose: For server side
     4. MongoDB, Cloudinary: As DataBase
 ## Features
 - Authentication
